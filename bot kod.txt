@@ -1,0 +1,31 @@
+const Discord = require('discord.js');
+const bot = new Discord.Client();
+
+const token = 'NjcwMzUwMjUxMjQwMTk0MTIw.Xiw9Ig.WApKBfiL7wclQJmNPHSblLGp4Z0';
+
+bot.on('ready', () =>{
+    console.log('Bot jest online!');
+    bot.user.setActivity('sa-rp.pl')
+})
+
+bot.on('message', msg=>{
+    if(msg.content === "!hej"){
+        msg.reply('Witamy!');
+    }
+})
+
+bot.login(token);
+
+bot.on('guildMemberAdd', member =>{
+
+    const channel = member.guild.channels.find(channel => channel.name === "powitalny");
+    if(!channel) return;
+    
+    channel.send(`Cześć ${member}, witamy na San Andreas Role-Play! Zapraszamy do rejestracji na naszym forum sa-rp.pl! `)
+
+    var role = member.guild.roles.find('name', "Gracz");
+
+    member.addRole(role)
+});
+
+bot.login(process.env.token);
